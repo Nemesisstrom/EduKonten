@@ -13,7 +13,7 @@
 
                 @if($materi->gambar)
                     <figure class="mb-4">
-                         @if(filter_var($materi->gambar, FILTER_VALIDATE_URL))
+                        @if(filter_var($materi->gambar, FILTER_VALIDATE_URL))
                             <img src="{{ $materi->gambar }}" class="img-fluid rounded" alt="{{ $materi->judul }}">
                         @else
                             <img src="{{ asset('storage/' . $materi->gambar) }}" class="img-fluid rounded" alt="{{ $materi->judul }}">
@@ -62,4 +62,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

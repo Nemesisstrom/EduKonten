@@ -61,11 +61,27 @@ class MateriController extends Controller
     /**
      * Tampilkan form edit materi.
      */
-    public function edit(Materi $materi)
-    {
-        return view('materi.edit', compact('materi'));
+    public function update(Request $request, $id)
+{
+    $materi = Materi::findOrFail($id);
+
+    // Cek otorisasi jika belum ditangani oleh Policy
+    if (auth()->user()->id !== $materi->user_id && auth()->user()->role !== 'admin') {
+        abort(403, 'Akses ditolak.');
     }
 
+    // Validasi input
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'gambar' => 'nullable|url',
+    ]);
+
+    // Update data
+    $materi->update($validated);
+
+    return redirect()->route('materi.index')->with('success', 'Materi berhasil diperbarui!');
+}
     /**
      * Hapus materi.
      */

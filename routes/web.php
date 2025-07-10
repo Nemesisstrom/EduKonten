@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MateriController as AdminMateriController;
 
 
 
+
 Route::get('/', [MateriController::class, 'index'])->name('home');
 
 Route::get('/materi', action: [MateriController::class, 'index'])->name('materi');
@@ -17,9 +18,14 @@ Route::get('/tips', [HomeController::class, 'tips'])->name('tips');
 
 // Resource route untuk Materi
 Route::resource('materi', MateriController::class);
-Route::get('/materi/{materi}/edit', [MateriController::class, 'edit'])->name('materi.edit')->middleware('auth');
-Route::put('/materi/{materi}', [MateriController::class, 'update'])->name('materi.update')->middleware('auth');
+
 Route::delete('/materi/{materi}', [MateriController::class, 'destroy'])->name('materi.destroy')->middleware('auth');
+
+// Rute Proteksi Update
+Route::middleware('auth')->group(function () {
+    Route::get('/materi/{id}/edit', [MateriController::class, 'edit'])->name('materi.edit');
+    Route::post('/materi/{id}/update', [MateriController::class, 'update'])->name('materi.update');
+});
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
@@ -35,4 +41,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+
 

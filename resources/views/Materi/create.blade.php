@@ -19,13 +19,6 @@
 
     <button type="submit">Simpan</button>
 
-    <!-- Input lainnya -->
-    <label for="media">Upload Foto:</label><br>
-    <input type="file" name="media" accept="image/*"><br>
-
-    <label for="youtube_video">Atau Masukkan Link Video YouTube:</label><br>
-    <input type="url" name="youtube_video" placeholder="https://www.youtube.com/watch?v=xxxxxx" value="{{ old('youtube_video') }}"><br>
-    <small>Jika ingin menambahkan video, upload ke YouTube terlebih dahulu lalu masukkan link di sini.</small><br>
 </form>
 
 @if ($errors->any())
